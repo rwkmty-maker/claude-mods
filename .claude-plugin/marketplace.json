@@ -1,0 +1,8 @@
+{
+  "name": "komatsu-mods",
+  "description": "Claude Code mods by Komatsu",
+  "owner": { "name": "Yuichiro Komatsu" },
+  "plugins": [
+    { "name": "usage-band", "source": "./usage-band", "description": "Shows the remaining usage (5-hour and 7-day windows) above the prompt" }
+  ]
+}
