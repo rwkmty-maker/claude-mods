@@ -40,9 +40,17 @@ export const register: Register = on => {
 
   on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) => {
     const ls = await read($, limits)
-    if (e.props.hasSurvey || ls.length === 0) return next(e)
-    const now = await $.clock.now()
+    if (e.props.hasSurvey) return next(e)
     const { Box, Text } = $.ui.resolve(e)
+    if (ls.length === 0) {
+      // say so, instead of showing nothing: the engine has no usage reading in this environment (yet)
+      return (
+        <Box>
+          <Text dimColor>残りの使用量: まだ取得できていません（この環境では使用量の情報が届いていません）</Text>
+        </Box>
+      )
+    }
+    const now = await $.clock.now()
     const low = ls.some(l => l.percentUsed >= 80)
     return (
       <Box>
